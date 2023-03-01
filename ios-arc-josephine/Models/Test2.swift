@@ -50,9 +50,21 @@ func GetJsonData() {
     
     // MARK: Get path
     if let path = Bundle.main.path(forResource: fileName, ofType: filePath) {
-        
-        // MARK: Get data
-        // MARK: Decode and display data
+        do {
+            // MARK: Get data
+            let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+            
+            // MARK: Decode and display data
+            let decode = try JSONDecoder().decode(Test2.self, from: data)
+            
+            print(Test2.self)
+            
+//        let jsonObject = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
+//                        print(jsonObject)
+        } catch {
+            print("JSON doesnt exist")
+        }
+       
     } else {
         return
     }
