@@ -27,3 +27,26 @@ struct Test3: Codable {
 struct Author: Codable {
     let lastname, firstname: String
 }
+
+func GetJsonDataTest3() {
+    let fileName = "test3"
+    let filePath = "json"
+    
+    // MARK: Get path
+    if let path = Bundle.main.path(forResource: fileName, ofType: filePath) {
+        do {
+            // MARK: Get data
+            let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+            
+            // MARK: Decode and display data
+            let decode = try JSONDecoder().decode(Test3.self, from: data)
+            
+            print(decode)
+        } catch {
+            print("JSON doesnt exist")
+        }
+       
+    } else {
+        return
+    }
+}

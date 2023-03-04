@@ -30,3 +30,26 @@ struct Topping: Codable {
 }
 
 typealias Test1 = [Test1Element]
+
+func GetJsonDataTest1() {
+    let fileName = "test1"
+    let filePath = "json"
+    
+    // MARK: Get path
+    if let path = Bundle.main.path(forResource: fileName, ofType: filePath) {
+        do {
+            // MARK: Get data
+            let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+            
+            // MARK: Decode and display data
+            let decode = try JSONDecoder().decode(Test1.self, from: data)
+            
+            print(decode)
+        } catch {
+            print("JSON doesnt exist")
+        }
+       
+    } else {
+        return
+    }
+}
